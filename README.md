@@ -4,9 +4,6 @@
       <img src="docs/source/_static/logo.png" alt="Turon" width="250" height="84">
     </a>
   </p>
-  <p align="center">
-    Users and logs provide clues. Sentry provides answers.
-  </p>
 </p>
 
 
