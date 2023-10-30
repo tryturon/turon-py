@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Install &#8212; turon  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+          
+
+          <div class="body" role="main">
+            
+  <figure class="align-center">
+<a class="reference internal image-reference" href="_images/logo.png"><img alt="_images/logo.png" src="_images/logo.png" style="width: 250px;" /></a>
+</figure>
+<p><a class="reference external" href="https://www.turon.io">Turon</a> is a platform that allows developers and data teams to build highly performant APIs on top of their data warehouses.</p>
+<p>This is the API documentation for Turon’s official Python SDK.</p>
+<p>Don’t already have an account and Turon project? Head over to <a class="reference external" href="https://app.turon.io">turon.io</a>, then return to this page.</p>
+<section id="install">
+<h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<p>Install our Python SDK using <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pip install --upgrade turon
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">turon</span> <span class="kn">import</span> <span class="n">Turon</span>
+<span class="kn">from</span> <span class="nn">turon.exceptions</span> <span class="kn">import</span> <span class="n">APIException</span>
+
+<span class="n">turon</span> <span class="o">=</span> <span class="n">Turon</span><span class="p">(</span><span class="s1">&#39;TURON_APP_KEY&#39;</span><span class="p">,</span> <span class="s1">&#39;TURON_API_KEY&#39;</span><span class="p">)</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">turon</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;GetUserById&#39;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="s1">&#39;582091167&#39;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+   <span class="n">user</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">APIException</span> <span class="k">as</span> <span class="n">excinfo</span><span class="p">:</span>
+   <span class="k">if</span> <span class="n">excinfo</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;User could not be found.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-turon">
+<span id="api"></span><h1>API<a class="headerlink" href="#module-turon" title="Permalink to this headline">¶</a></h1>
+<p>This part of the documentation lists the full API reference of all public classes and functions.</p>
+<section id="client">
+<h2>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="turon.Turon">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">turon.</span></span><span class="sig-name descname"><span class="pre">Turon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://pylon.turon.io'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_attempts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_backoff_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#turon.Turon" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Turon API client. Formats and submits API calls to Turon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_key</strong> – The application key from your Turon share.</p></li>
+<li><p><strong>api_key</strong> – The secret key from your Turon share.</p></li>
+<li><p><strong>base_url</strong> – API endpoint url.</p></li>
+<li><p><strong>retry_attempts</strong> – Total number of retries to allow.</p></li>
+<li><p><strong>retry_backoff_factor</strong> – A backoff factor to apply between attempts after the second try.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="turon.Turon.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#turon.Query" title="turon.Query"><span class="pre">turon.Query</span></a></span></span><a class="headerlink" href="#turon.Turon.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method builds and returns a Query object that can be executed against the Turon API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint_name</strong> – Endpoint you are querying.</p></li>
+<li><p><strong>params</strong> – Query parameters, such as lookup fields, that
+you want to include in your request. This will throw an error if required
+fields are missing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="query">
+<h2>Query<a class="headerlink" href="#query" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="turon.Query">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">turon.</span></span><span class="sig-name descname"><span class="pre">Query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#turon.Turon" title="turon.Turon"><span class="pre">turon.Turon</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#turon.Query" title="Permalink to this definition">¶</a></dt>
+<dd><p>A prepared query to be executed against the Turon API. This object is lazy loaded and
+will defer execution until certain methods (<cite>to_*</cite>) are called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> – Instance of the Turon client.</p></li>
+<li><p><strong>endpoint_name</strong> – Endpoint you are querying.</p></li>
+<li><p><strong>params</strong> – Query parameters, such as lookup fields, that
+you want to include in your request. This will throw an error if required
+fields are missing.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="turon.Query.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#turon.Query.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the query results to a dictionary or list of dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>limit</strong> – Maximum number of objects to return. Only applied for
+endpoints configured to return multiple results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="turon.Query.to_pandas">
+<span class="sig-name descname"><span class="pre">to_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#turon.Query.to_pandas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the query results to pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>limit</strong> – Maximum number of objects to return. Only applied for
+endpoints configured to return multiple results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="turon.Query.to_tuple">
+<span class="sig-name descname"><span class="pre">to_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#turon.Query.to_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the query results to a tuple or list of tuples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>limit</strong> – Maximum number of objects to return. Only applied for
+endpoints configured to return multiple results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<p>Exceptions inherit from the base <a class="reference external" href="#turon.exceptions.APIException">APIException</a> class.</p>
+<p>The SDK does not ship with any error handling logic. We recommend that you build out <cite>try/except</cite> blocks to handle errors in the way that is most appropriate for your application.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">turon</span> <span class="kn">import</span> <span class="n">Turon</span>
+<span class="kn">from</span> <span class="nn">turon.exceptions</span> <span class="kn">import</span> <span class="n">NotFound</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Turon</span><span class="p">(</span><span class="s1">&#39;TURON_APP_KEY&#39;</span><span class="p">,</span> <span class="s1">&#39;TURON_API_KEY&#39;</span><span class="p">)</span>
+<span class="n">widget</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">try</span><span class="p">:</span>
+   <span class="n">widget</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;GetWidgetById&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;12345&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">NotFound</span><span class="p">:</span>
+   <span class="k">pass</span>
+</pre></div>
+</div>
+<span class="target" id="module-turon.exceptions"></span><dl class="py exception">
+<dt class="sig sig-object py" id="turon.exceptions.APIException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">turon.exceptions.</span></span><span class="sig-name descname"><span class="pre">APIException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#turon.exceptions.APIException" title="Permalink to this definition">¶</a></dt>
+<dd><p>An exception related to usage of the Turon API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> – the error message to display.</p></li>
+<li><p><strong>code</strong> – the HTTP status code associated with the HTTP response.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="turon.exceptions.NotFound">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">turon.exceptions.</span></span><span class="sig-name descname"><span class="pre">NotFound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Resource</span> <span class="pre">not</span> <span class="pre">found.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">404</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#turon.exceptions.NotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if the requested resource is not found.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="turon.exceptions.Unauthorized">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">turon.exceptions.</span></span><span class="sig-name descname"><span class="pre">Unauthorized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Unauthorized</span> <span class="pre">request.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">403</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#turon.exceptions.Unauthorized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if an unauthorized request is made.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Scott Cruwys, Parsa Shabani.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
