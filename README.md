@@ -10,16 +10,14 @@
 </p>
 
 
-`Turon <https://www.turon.io>`_ is a platform that allows developers and data teams to build highly performant APIs on top of their data warehouses.
+[Turon](https://www.turon.io) is a platform that allows developers and data teams to build highly performant APIs on top of their data warehouses.
 
 This is the API documentation for Turon's official Python SDK.
-
-Don't already have an account and Turon project? Head over to `turon.io <https://app.turon.io>`_, then return to this page.
 
 Install
 -------
 
-Install our Python SDK using `pip <https://pip.pypa.io/en/stable/>`_:
+Install our Python SDK using [pip](https://pip.pypa.io/en/stable/):
 
 ```shell
 pip install --upgrade turon
