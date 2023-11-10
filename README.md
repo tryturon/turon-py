@@ -28,7 +28,7 @@ Usage
  from turon.exceptions import APIException
 
  turon = Turon('TURON_APP_KEY', 'TURON_API_KEY')
- query = turon.query('GetUserById', user_id='582091167')
+ query = turon.get('GetUserById', user_id='582091167')
 
  try:
     user = query.to_dict()
